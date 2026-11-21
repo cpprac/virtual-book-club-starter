@@ -1,3 +1,5 @@
+const reviewsList = document.getElementById("reviews-list");
+
 function loadReviews() {
     fetch("reviews.json")
         .then(response => {
@@ -7,7 +9,11 @@ function loadReviews() {
             return response.json();
         })
         .then(reviews => {
-            console.log(reviews);
+            reviews.forEach(review => {
+                createReviewElement(review);
+                const reviewDiv = document.createElement("div");
+                reviewsList.appendChild(reviewDiv);
+            })
         })
         .catch(error => {
             console.error("There was a problem:", error);
@@ -16,6 +22,10 @@ function loadReviews() {
 
 function handleReviewSubmit() {
     console.log("handleReviewSubmit called!");
+};
+
+function createReviewElement(review) {
+    console.log(review);
 };
 
 document.addEventListener("DOMContentLoaded", () => {
