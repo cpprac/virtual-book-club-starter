@@ -1,5 +1,17 @@
 function loadReviews() {
-    console.log("loadReviews called!");
+    fetch("reviews.json")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(reviews => {
+            console.log(reviews);
+        })
+        .catch(error => {
+            console.error("There was a problem:", error);
+        })
 };
 
 function handleReviewSubmit() {
