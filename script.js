@@ -10,9 +10,8 @@ function loadReviews() {
         })
         .then(reviews => {
             reviews.forEach(review => {
-                createReviewElement(review);
-                const reviewDiv = document.createElement("div");
-                reviewsList.appendChild(reviewDiv);
+                const reviewEntry = createReviewElement(review);
+                reviewsList.appendChild(reviewEntry);
             })
         })
         .catch(error => {
@@ -25,7 +24,24 @@ function handleReviewSubmit() {
 };
 
 function createReviewElement(review) {
-    console.log(review);
+    const newReview = document.createElement("div");
+    newReview.className = "review-item";
+    newReview.innerHTML = `
+        <h3>${review.title}</h3>
+        <p>${review.reviewText}</p>
+        <p>Rating: ${review.rating}</p>
+        <button onclick="toggleLike()">Like</button>
+        <button onclick="repostReview()">Repost</button>
+    `;
+    return newReview;
+};
+
+function toggleLike() {
+    console.log("Like button clicked");
+};
+
+function repostReview() {
+    console.log("Repost button clicked");
 };
 
 document.addEventListener("DOMContentLoaded", () => {
