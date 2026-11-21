@@ -1,4 +1,5 @@
 const reviewsList = document.getElementById("reviews-list");
+const lastReviewId = 0;
 
 function loadReviews() {
     fetch("reviews.json")
@@ -19,8 +20,37 @@ function loadReviews() {
         })
 };
 
-function handleReviewSubmit() {
-    console.log("handleReviewSubmit called!");
+function handleReviewSubmit(event) {
+    event.preventDefault();
+
+    // * allow the user to submit a new review
+    // access the form inputs
+    const titleInput = document.getElementById("book-title");
+    const title = titleInput.value;
+    const textInput = document.getElementById("review-text");
+    const text = textInput.value;
+    const ratingInput = document.getElementById("rating");
+    const rating = ratingInput.value;
+    // create a review object with the form inputs
+
+    lastReviewId += 1;
+
+    const newReview = {
+        id: lastReviewId,
+        title: title,
+        reviewText: text,
+        rating: rating,
+        likes: 0,
+        reposts: 0
+    };
+
+    // STOPPED HERE:
+    // * add the new review to the top of the feed
+
+
+
+
+    event.target.reset();
 };
 
 function createReviewElement(review) {
