@@ -60,18 +60,44 @@ function createReviewElement(review) {
         <h3>${review.title}</h3>
         <p>${review.reviewText}</p>
         <p>Rating: ${review.rating}</p>
-        <button onclick="toggleLike()">Like</button>
-        <button onclick="repostReview()">Repost</button>
+        <button id="like-button" data-id=${review.id} data-isLiked="false" onclick="toggleLike(this)">Like (${review.likes})</button>
+        <button id="repost-button" data-isReposted="false" onclick="repostReview(this)">Repost (${review.reposts})</button>
     `;
     return newReview;
 };
 
-function toggleLike() {
-    console.log("Like button clicked");
+function toggleLike(currButton) {
+    // turn likeState into a boolean
+    const likeState = currButton.getAttribute("data-isLiked") === "true";
+    let likeCount = parseInt(currButton.textContent.match(/\d+/));
+    
+    // dislike the review
+    if (likeState === true) {
+        currButton.setAttribute("data-isLiked", "false");
+        likeCount -= 1;
+        currButton.textContent = `Like (${likeCount})`;
+    // like the review
+    } else {
+        currButton.setAttribute("data-isLiked", "true");
+        likeCount += 1
+        currButton.textContent = `Like (${likeCount})`;
+    }
 };
 
-function repostReview() {
-    console.log("Repost button clicked");
+function repostReview(currButton) {
+    const repostState = currButton.getAttribute("data-isReposted") === "true";
+    let repostCount = parseInt(currButton.textContent.match(/\d+/));
+
+    // un-repost the post
+    if (repostState === true) {
+        currButton.setAttribute("data-isReposted", "false");
+        repostCount -= 1
+        currButton.textContent = `Repost (${repostCount})`;
+    } else {
+        currButton.setAttribute("data-isReposted", "true");
+        repostCount += 1
+        currButton.textContent = `Repost (${repostCount})`
+    }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
