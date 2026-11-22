@@ -1,5 +1,5 @@
 const reviewsList = document.getElementById("reviews-list");
-const lastReviewId = 0;
+let lastReviewId = 0;
 
 function loadReviews() {
     fetch("reviews.json")
@@ -46,9 +46,9 @@ function handleReviewSubmit(event) {
 
     // STOPPED HERE:
     // * add the new review to the top of the feed
-
-
-
+    const latestReview = createReviewElement(newReview);
+    const curTopReview = reviewsList.firstElementChild;
+    reviewsList.insertBefore(latestReview, curTopReview);
 
     event.target.reset();
 };
